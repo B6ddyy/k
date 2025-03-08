@@ -98,7 +98,7 @@ async function startBot() {
                     if (msg.key.remoteJid === newMember && msg.message.conversation) {
                         const userResponse = msg.message.conversation.toLowerCase();
                         console.log(`Resposta do novo membro: ${userResponse}`);
-                        if (userResponse.includes('quero')) {
+                        if (userResponse.includes('eu') || userResponse.includes('quero')) {
                             await sendMessageWithDelay(sock, newMember, correctResponseMessage); // Envia resposta correta com delay
                         }
                     }
@@ -116,7 +116,7 @@ async function startBot() {
             // Verifica se a mensagem é do seu número
             if (msg.key.remoteJid === MY_PHONE_NUMBER && msg.message.conversation) {
                 const command = msg.message.conversation.trim(); // Preserva a formatação original
-                console.log(`Comando recebido: ${command}`);
+                console.log(`Comando recebido: ${command }`);
 
                 // Comandos para mudar as mensagens e controlar o bot
                 if (command.startsWith('/set welcome ')) {
