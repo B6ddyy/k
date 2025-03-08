@@ -43,7 +43,7 @@ let isPaused = false; // Variável para controlar a pausa
 async function updateMessages(newWelcomeMessage, newResponseMessage) {
     messages.welcomeMessage = newWelcomeMessage;
     messages.correctResponseMessage = newResponseMessage; // Atualiza a mensagem de resposta correta
-    saveMessages(messages);
+    saveMessages(messages); // Salva as mensagens no arquivo
 }
 
 // Função para enviar mensagens com delay
@@ -98,7 +98,7 @@ async function startBot() {
                     if (msg.key.remoteJid === newMember && msg.message.conversation) {
                         const userResponse = msg.message.conversation.toLowerCase();
                         console.log(`Resposta do novo membro: ${userResponse}`);
-                        if (userResponse.includes('eu') || userResponse.includes('quero')) {
+                        if (userResponse.includes('quero')) {
                             await sendMessageWithDelay(sock, newMember, correctResponseMessage); // Envia resposta correta com delay
                         }
                     }
@@ -123,7 +123,7 @@ async function startBot() {
                     const newMessage = command.slice(13).trim();
                     if (newMessage.startsWith('"') && newMessage.endsWith('"')) {
                         const updatedMessage = newMessage.slice(1, -1);
-                        await updateMessages(updatedMessage, correctResponseMessage); // Atualiza ambas as mensagens
+                        await updateMessages(updatedMessage, correctResponseMessage); // Atualiza a mensagem de boas-vindas
                         await sendMessageWithDelay(sock, MY_PHONE_NUMBER, "Mensagem de boas-vindas atualizada!"); // Envia confirmação com delay
                     } else {
                         await sendMessageWithDelay(sock, MY_PHONE_NUMBER, "Por favor, coloque a nova mensagem de boas-vindas entre aspas."); // Envia aviso com delay
@@ -132,7 +132,7 @@ async function startBot() {
                     const newResponse = command.slice(14).trim();
                     if (newResponse.startsWith('"') && newResponse.endsWith('"')) {
                         const updatedResponse = newResponse.slice(1, -1);
-                        await updateMessages(welcomeMessage, updatedResponse); // Atualiza ambas as mensagens
+                        await updateMessages(welcomeMessage, updatedResponse); // Atualiza a mensagem de resposta
                         await sendMessageWithDelay(sock, MY_PHONE_NUMBER, "Mensagem de resposta correta atualizada!"); // Envia confirmação com delay
                     } else {
                         await sendMessageWithDelay(sock, MY_PHONE_NUMBER, "Por favor, coloque a nova mensagem de resposta entre aspas."); // Envia aviso com delay
